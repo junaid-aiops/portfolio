@@ -1,62 +1,48 @@
 import { useState } from "react";
+
 import Sidebar from "./components/layout/Sidebar";
 import HomePage from "./pages/HomePage";
+
 import "./App.css";
 
 function App() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] =
+    useState(false);
 
-  function toggleDesktopSidebar() {
-    setIsSidebarCollapsed((currentValue) => !currentValue);
-  }
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] =
+    useState(false);
 
-  function toggleMobileSidebar() {
-    setIsMobileSidebarOpen((currentValue) => !currentValue);
-  }
+  const toggleSidebarCollapse = () => {
+    setIsSidebarCollapsed((currentState) => !currentState);
+  };
 
-  function closeMobileSidebar() {
+  const openMobileSidebar = () => {
+    setIsMobileSidebarOpen(true);
+  };
+
+  const closeMobileSidebar = () => {
     setIsMobileSidebarOpen(false);
-  }
+  };
 
   return (
     <div
-      className={`app-layout ${
-        isSidebarCollapsed ? "app-layout--collapsed" : ""
+      className={`app ${
+        isSidebarCollapsed
+          ? "app--sidebar-collapsed"
+          : ""
       }`}
     >
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         isMobileOpen={isMobileSidebarOpen}
-        onDesktopToggle={toggleDesktopSidebar}
-        onMobileClose={closeMobileSidebar}
+        onToggleCollapse={toggleSidebarCollapse}
+        onOpenMobile={openMobileSidebar}
+        onCloseMobile={closeMobileSidebar}
       />
 
-      {isMobileSidebarOpen && (
-        <button
-          className="sidebar-overlay"
-          type="button"
-          aria-label="Close sidebar"
-          onClick={closeMobileSidebar}
-        />
-      )}
-
-      <div className="app-layout__content">
-        <header className="mobile-header">
-          <button
-            className="mobile-header__menu-button"
-            type="button"
-            aria-label="Open sidebar"
-            onClick={toggleMobileSidebar}
-          >
-            ☰
-          </button>
-
-          <span className="mobile-header__brand">Junaid</span>
-        </header>
-
+      <main className="app__main">
         <HomePage />
-      </div>
+      </main>
     </div>
   );
 }

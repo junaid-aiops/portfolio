@@ -1,4 +1,5 @@
 import WhatIDoSection from "../components/about/WhatIDoSection";
+import ContactSection from "../components/contact/ContactSection";
 import ExperienceSection from "../components/experience/ExperienceSection";
 import HeroSection from "../components/home/HeroSection";
 import ProjectsSection from "../components/projects/ProjectsSection";
@@ -10,6 +11,7 @@ function HomePage() {
       <WhatIDoSection />
       <ProjectsSection />
       <ExperienceSection />
+      <ContactSection />
     </main>
   );
 }

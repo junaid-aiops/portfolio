@@ -1,60 +1,41 @@
-.app-layout {
+.app {
+  width: 100%;
   min-height: 100vh;
+
+  overflow-x: clip;
+
+  background-color: var(--color-background);
 }
 
-.app-layout__content {
+.app__main {
+  width: calc(100% - 280px);
   min-height: 100vh;
   margin-left: 280px;
-  transition: margin-left 0.25s ease;
+
+  transition:
+    width var(--transition-normal),
+    margin-left var(--transition-normal);
 }
 
-.app-layout--collapsed .app-layout__content {
+/*
+  Sidebar collapsed:
+  sidebar width changes from 280px to 76px.
+*/
+
+.app--sidebar-collapsed .app__main {
+  width: calc(100% - 76px);
   margin-left: 76px;
 }
 
-.mobile-header {
-  display: none;
-}
+/*
+  On mobile, the sidebar becomes an overlay.
+  It should not push the main page.
+*/
 
-@media (max-width: 850px) {
-  .app-layout__content,
-  .app-layout--collapsed .app-layout__content {
+@media (max-width: 900px) {
+  .app__main,
+  .app--sidebar-collapsed .app__main {
+    width: 100%;
     margin-left: 0;
-  }
-
-  .mobile-header {
-    position: sticky;
-    top: 0;
-    z-index: 800;
-
-    min-height: 64px;
-    padding-inline: 1rem;
-
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    border-bottom: 1px solid var(--color-border);
-    background-color: rgba(247, 247, 245, 0.94);
-    backdrop-filter: blur(12px);
-  }
-
-  .mobile-header__menu-button {
-    width: 40px;
-    height: 40px;
-
-    border: 0;
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--color-text-primary);
-    font-size: 1.25rem;
-  }
-
-  .mobile-header__menu-button:hover {
-    background-color: #e5e5e2;
-  }
-
-  .mobile-header__brand {
-    font-weight: 700;
   }
 }
