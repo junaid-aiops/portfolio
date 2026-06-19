@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Sidebar from "./components/layout/Sidebar";
 import HomePage from "./pages/HomePage";
@@ -12,17 +12,17 @@ function App() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] =
     useState(false);
 
-  const toggleSidebarCollapse = () => {
-    setIsSidebarCollapsed((currentState) => !currentState);
-  };
+  useEffect(() => {
+    if (isMobileSidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
-  const openMobileSidebar = () => {
-    setIsMobileSidebarOpen(true);
-  };
-
-  const closeMobileSidebar = () => {
-    setIsMobileSidebarOpen(false);
-  };
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileSidebarOpen]);
 
   return (
     <div
@@ -35,9 +35,15 @@ function App() {
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         isMobileOpen={isMobileSidebarOpen}
-        onToggleCollapse={toggleSidebarCollapse}
-        onOpenMobile={openMobileSidebar}
-        onCloseMobile={closeMobileSidebar}
+        onToggleCollapse={() =>
+          setIsSidebarCollapsed((current) => !current)
+        }
+        onOpenMobile={() =>
+          setIsMobileSidebarOpen(true)
+        }
+        onCloseMobile={() =>
+          setIsMobileSidebarOpen(false)
+        }
       />
 
       <main className="app__main">
